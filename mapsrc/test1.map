@@ -35,6 +35,12 @@
 }
 // entity 1
 {
-"classname" "light"
+"classname" "pov_light"
 "origin" "256 0 128"
+}
+// entity 2
+{
+"classname" "pov_camera"
+"origin" "64 -448 128"
+"angles" "0 75 0"
 }
