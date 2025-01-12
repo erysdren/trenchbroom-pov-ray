@@ -1,5 +1,19 @@
+
+@BaseClass = Angles
+[
+	angles(string)
+]
+
 @SolidClass = worldspawn : "World" []
 
 @SolidClass = func_group : "Group" []
 
-@PointClass color(255 255 40) = light : "Light" []
+@PointClass color(40 40 255) base(Angles) = pov_camera : "Camera"
+[
+	fov(float) : : "90"
+]
+
+@PointClass color(255 255 40) base(Angles) = pov_light : "Light"
+[
+
+]
