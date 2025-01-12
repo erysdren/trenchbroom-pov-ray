@@ -41,6 +41,14 @@
 // entity 2
 {
 "classname" "pov_camera"
-"origin" "64 -448 128"
+"origin" "64 -448 0"
 "angles" "0 75 0"
+"target" "target1"
+"fov" "45"
+}
+// entity 3
+{
+"classname" "pov_target"
+"origin" "320 -64 512"
+"targetname" "target1"
 }
