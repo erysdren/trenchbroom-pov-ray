@@ -35,12 +35,9 @@ class Plane():
 	def __repr__(self):
 		return repr(self.x) + repr(self.y) + repr(self.z)
 
-class MapEntity():
-	def __init__(self, keys={}, brushes=[]):
-		self.keys = keys
+class MapEntity(dict):
+	def __init__(self, brushes=[]):
 		self.brushes = brushes
-	def __repr__(self):
-		return repr(self.keys) + repr(self.brushes)
 
 class MapBrushFace():
 	def __init__(self, plane=Plane(), texture="", u=Vec4(), v=Vec4(), scale=Vec2()):
@@ -108,7 +105,7 @@ def parseBrush(inputFile):
 			mapBrushFace.scale.y = float(tokens[30])
 			mapBrush.faces.append(mapBrushFace)
 		# done with brush
-		if line.startswith("}"):
+		elif line.startswith("}"):
 			return mapBrush
 
 # parse map entity from current position in input file
@@ -122,7 +119,7 @@ def parseEntity(inputFile):
 		if line.startswith("\""):
 			key = line.split("\"")[1]
 			value = line.split("\"")[3]
-			mapEntity.keys[key] = value
+			mapEntity[key] = value
 		# brush
 		elif line.startswith("{"):
 			mapEntity.brushes.append(parseBrush(inputFile))
@@ -145,7 +142,7 @@ def parseMapEntities(inputFile):
 		# comment
 		if line.startswith("//"):
 			continue
-		if line.startswith("{"):
+		elif line.startswith("{"):
 			mapEntities.append(parseEntity(inputFile))
 
 	return mapEntities
@@ -174,4 +171,3 @@ if __name__ == "__main__":
 
 	# parse map structure
 	mapEntities = parseMapEntities(inputFile)
-	print(mapEntities[0].keys)
