@@ -8,7 +8,7 @@ class Vec2():
 		self.x = x
 		self.y = y
 	def __repr__(self):
-		return f"{self.x} {self.y}"
+		return f"[{self.x}, {self.y}]"
 
 class Vec3():
 	def __init__(self, x=0, y=0, z=0):
@@ -16,7 +16,7 @@ class Vec3():
 		self.y = y
 		self.z = z
 	def __repr__(self):
-		return f"{self.x} {self.y} {self.z}"
+		return f"[{self.x}, {self.y}, {self.z}]"
 
 class Vec4():
 	def __init__(self, x=0, y=0, z=0, w=0):
@@ -25,22 +25,14 @@ class Vec4():
 		self.z = z
 		self.w = w
 	def __repr__(self):
-		return f"{self.x} {self.y} {self.z} {self.w}"
-
-class Plane():
-	def __init__(self, x=Vec3(), y=Vec3(), z=Vec3()):
-		self.x = x
-		self.y = y
-		self.z = z
-	def __repr__(self):
-		return repr(self.x) + repr(self.y) + repr(self.z)
+		return f"[{self.x}, {self.y}, {self.z}, {self.w}]"
 
 class MapEntity(dict):
 	def __init__(self, brushes=[]):
 		self.brushes = brushes
 
 class MapBrushFace():
-	def __init__(self, plane=Plane(), texture="", u=Vec4(), v=Vec4(), scale=Vec2()):
+	def __init__(self, plane=Vec4(), texture="", u=Vec4(), v=Vec4(), scale=Vec2()):
 		self.plane = plane
 		self.texture = texture
 		self.u = u
@@ -54,6 +46,33 @@ class MapBrush():
 		self.faces = faces
 	def __repr__(self):
 		return repr(self.faces)
+
+def vec3Add(a, b):
+	return Vec3(a.x + b.x, a.y + b.y, a.z + b.z)
+
+def vec3Sub(a, b):
+	return Vec3(a.x - b.x, a.y - b.y, a.z - b.z)
+
+def vec3Cross(a, b):
+	r = Vec3()
+	r.x = a.y * b.z - a.z * b.y
+	r.y = a.z * b.x - a.x * b.z
+	r.z = a.x * b.y - a.y * b.x
+	return r
+
+def vec3Dot(a, b):
+	r = 0
+	r += a.x * b.x;
+	r += a.y * b.y;
+	r += a.z * b.z;
+	return r
+
+def planeFromPoints(a, b, c):
+	s1 = vec3Sub(b, a)
+	s2 = vec3Sub(c, a)
+	c = vec3Cross(s1, s2)
+	d = vec3Dot(c, a)
+	return Vec4(c.x, c.y, c.z, d)
 
 # print something useful then quit
 def printHelp():
@@ -83,15 +102,10 @@ def parseBrush(inputFile):
 		if line.startswith("("):
 			mapBrushFace = MapBrushFace()
 			tokens = line.split()
-			mapBrushFace.plane.x.x = float(tokens[1])
-			mapBrushFace.plane.x.y = float(tokens[2])
-			mapBrushFace.plane.x.z = float(tokens[3])
-			mapBrushFace.plane.y.x = float(tokens[6])
-			mapBrushFace.plane.y.y = float(tokens[7])
-			mapBrushFace.plane.y.z = float(tokens[8])
-			mapBrushFace.plane.z.x = float(tokens[11])
-			mapBrushFace.plane.z.y = float(tokens[12])
-			mapBrushFace.plane.z.z = float(tokens[13])
+			a = Vec3(float(tokens[1]), float(tokens[2]), float(tokens[3]))
+			b = Vec3(float(tokens[6]), float(tokens[7]), float(tokens[8]))
+			c = Vec3(float(tokens[11]), float(tokens[12]), float(tokens[13]))
+			mapBrushFace.plane = planeFromPoints(a, b, c)
 			mapBrushFace.texture = tokens[15]
 			mapBrushFace.u.x = float(tokens[17])
 			mapBrushFace.u.y = float(tokens[18])
