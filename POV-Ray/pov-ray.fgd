@@ -1,19 +1,32 @@
 
+@BaseClass = TargetName
+[
+	targetname(target_source)
+]
+
+@BaseClass = Target
+[
+	target(target_destination)
+]
+
 @BaseClass = Angles
 [
 	angles(string)
 ]
 
-@SolidClass = worldspawn : "World" []
+@SolidClass = worldspawn : "World"
+[
+	render_width(integer) : : 640
+	render_height(integer) : : 480
+]
 
 @SolidClass = func_group : "Group" []
 
-@PointClass color(40 40 255) base(Angles) = pov_camera : "Camera"
+@PointClass color(128 128 128) base(TargetName) = pov_target : "Target" []
+
+@PointClass color(128 128 255) base(Angles, TargetName, Target) = pov_camera : "Camera"
 [
 	fov(float) : : "90"
 ]
 
-@PointClass color(255 255 40) base(Angles) = pov_light : "Light"
-[
-
-]
+@PointClass color(255 255 128) base(Angles, TargetName) = pov_light : "Light" []
