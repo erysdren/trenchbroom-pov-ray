@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import math
 
 class Vec2():
 	def __init__(self, x=0, y=0):
@@ -28,22 +29,22 @@ class Vec4():
 		return f"[{self.x}, {self.y}, {self.z}, {self.w}]"
 
 class MapEntity(dict):
-	def __init__(self, brushes=[]):
-		self.brushes = brushes
+	def __init__(self):
+		self.brushes = []
 
 class MapBrushFace():
-	def __init__(self, plane=Vec4(), texture="", u=Vec4(), v=Vec4(), scale=Vec2()):
-		self.plane = plane
-		self.texture = texture
-		self.u = u
-		self.v = v
-		self.scale = scale
+	def __init__(self):
+		self.plane = Vec4()
+		self.texture = ""
+		self.u = Vec4()
+		self.v = Vec4()
+		self.scale = Vec2()
 	def __repr__(self):
 		return repr(self.plane) + self.texture + repr(self.u) + repr(self.v) + repr(self.scale)
 
 class MapBrush():
-	def __init__(self, faces=[]):
-		self.faces = faces
+	def __init__(self):
+		self.faces = []
 	def __repr__(self):
 		return repr(self.faces)
 
@@ -52,6 +53,13 @@ def vec3Add(a, b):
 
 def vec3Sub(a, b):
 	return Vec3(a.x - b.x, a.y - b.y, a.z - b.z)
+
+def vec3Length(a):
+	return math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z)
+
+def vec3Normalize(a):
+	mag = vec3Length(a)
+	return Vec3(a.x / mag, a.y / mag, a.z / mag)
 
 def vec3Cross(a, b):
 	r = Vec3()
@@ -70,7 +78,7 @@ def vec3Dot(a, b):
 def planeFromPoints(a, b, c):
 	s1 = vec3Sub(b, a)
 	s2 = vec3Sub(c, a)
-	c = vec3Cross(s1, s2)
+	c = vec3Normalize(vec3Cross(s2, s1))
 	d = vec3Dot(c, a)
 	return Vec4(c.x, c.y, c.z, d)
 
@@ -166,6 +174,25 @@ def die(msg):
 	print(f"ERROR: {msg}")
 	sys.exit(1)
 
+# search the list and return the first entity with the given classname
+def findByClassName(mapEntities, className):
+	for mapEntity in mapEntities:
+		if mapEntity["classname"] == className:
+			return mapEntity
+	return None
+
+# search the list and return the first entity with the given targetname
+def findByTargetName(mapEntities, targetName):
+	for mapEntity in mapEntities:
+		if "targetname" in mapEntity and mapEntity["targetname"] == targetName:
+			return mapEntity
+	return None
+
+# parse entity origin into vec3
+def getEntityFieldVec3(mapEntity, field):
+	tokens = mapEntity[field].split()
+	return Vec3(float(tokens[0]), float(tokens[1]), float(tokens[2]))
+
 # start here
 if __name__ == "__main__":
 
@@ -185,3 +212,61 @@ if __name__ == "__main__":
 
 	# parse map structure
 	mapEntities = parseMapEntities(inputFile)
+
+	# write out ini
+	iniFile = open(sys.argv[3], "w")
+	if "render_width" in mapEntities[0]:
+		iniFile.write(f"+W{mapEntities[0]["render_width"]}\n")
+	if "render_height" in mapEntities[0]:
+		iniFile.write(f"+H{mapEntities[0]["render_height"]}\n")
+	iniFile.write(f"Input_File_Name={sys.argv[2]}\n")
+	iniFile.close()
+
+	# write out pov
+	povFile = open(sys.argv[2], "w")
+
+	# get camera
+	mapCamera = findByClassName(mapEntities, "pov_camera")
+	if mapCamera == None:
+		die("Map has no pov_camera entity!")
+
+	# get target
+	mapCameraLookAt = None
+	if "target" in mapCamera:
+		mapCameraTarget = findByTargetName(mapEntities, mapCamera["target"])
+		if mapCameraTarget != None:
+			mapCameraLookAt = getEntityFieldVec3(mapCameraTarget, "origin")
+		else:
+			print("WARNING: Camera target specified does not exist!")
+
+	# write camera
+	povFile.write("camera {\n")
+	povFile.write("\tsky <0, 0, 1>\n")
+	povFile.write("\tdirection <-1, 0, 0>\n")
+	mapCameraOrigin = getEntityFieldVec3(mapCamera, "origin")
+	povFile.write(f"\tlocation <{mapCameraOrigin.x}, {mapCameraOrigin.y}, {mapCameraOrigin.z}>\n")
+	if mapCameraLookAt != None:
+		povFile.write(f"\tlook_at <{mapCameraLookAt.x}, {mapCameraLookAt.y}, {mapCameraLookAt.z}>\n")
+	if "fov" in mapCamera:
+		povFile.write(f"\tangle {float(mapCamera["fov"])}\n")
+	povFile.write("}\n\n")
+
+	# write lights
+	for mapEntity in mapEntities:
+		if mapEntity["classname"] == "pov_light":
+			origin = getEntityFieldVec3(mapEntity, "origin")
+			povFile.write("light_source {\n")
+			povFile.write(f"\t<{origin.x}, {origin.y}, {origin.z}>\n")
+			povFile.write("\tcolor rgb <1, 1, 1>\n")
+			povFile.write("}\n\n")
+
+	# write solids
+	for mapEntity in mapEntities:
+		for mapBrush in mapEntity.brushes:
+			povFile.write("intersection {\n")
+			for mapBrushFace in mapBrush.faces:
+				povFile.write(f"\tplane {{<{mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}>, {mapBrushFace.plane.w}}}\n")
+			povFile.write("\tpigment { rgb <1, 0, 1> }\n}\n\n")
+
+	# clean up
+	povFile.close()
