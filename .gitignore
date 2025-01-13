@@ -1,5 +1,5 @@
 textures/
 untracked/
-scenes/*.ini
-scenes/*.png
-scenes/*.pov
+scenes/**/*.ini
+scenes/**/*.png
+scenes/**/*.pov
