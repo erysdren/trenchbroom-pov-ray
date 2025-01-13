@@ -194,6 +194,19 @@ def getEntityFieldVec3(mapEntity, field):
 	tokens = mapEntity[field].split()
 	return Vec3(float(tokens[0]), float(tokens[1]), float(tokens[2]))
 
+# write generic key
+def writeIniKey(iniFile, mapEntity, entityKeyname, iniKeyName):
+	if entityKeyname in mapEntity:
+		iniFile.write(f"{iniKeyName}={mapEntity[entityKeyname]}\n")
+
+# write boolean key
+def writeIniBoolKey(iniFile, mapEntity, entityKeyname, iniKeyName):
+	if entityKeyname in mapEntity:
+		if int(mapEntity[entityKeyname]):
+			iniFile.write(f"{iniKeyName}=On\n")
+		else:
+			iniFile.write(f"{iniKeyName}=Off\n")
+
 # start here
 if __name__ == "__main__":
 
@@ -215,25 +228,21 @@ if __name__ == "__main__":
 	mapEntities = parseMapEntities(inputFile)
 
 	# write out ini
+	# TODO: clean this up
 	iniFile = open(sys.argv[3], "w")
-	if "render_width" in mapEntities[0]:
-		iniFile.write(f"Width={mapEntities[0]["render_width"]}\n")
-	if "render_height" in mapEntities[0]:
-		iniFile.write(f"Height={mapEntities[0]["render_height"]}\n")
-	if "quality" in mapEntities[0]:
-		iniFile.write(f"Quality={mapEntities[0]["quality"]}\n")
-	if "bounding_threshold" in mapEntities[0]:
-		iniFile.write(f"Bounding_Threshold={mapEntities[0]["bounding_threshold"]}\n")
-	if "display" in mapEntities[0]:
-		if int(mapEntities[0]["display"]):
-			iniFile.write("Display=On\n")
-		else:
-			iniFile.write("Display=Off\n")
-	if "verbose" in mapEntities[0]:
-		if int(mapEntities[0]["verbose"]):
-			iniFile.write("Verbose=On\n")
-		else:
-			iniFile.write("Verbose=Off\n")
+	writeIniBoolKey(iniFile, mapEntities[0], "bounding", "Bounding")
+	writeIniBoolKey(iniFile, mapEntities[0], "display", "Display")
+	writeIniBoolKey(iniFile, mapEntities[0], "verbose", "Verbose")
+	writeIniBoolKey(iniFile, mapEntities[0], "antialias", "Antialias")
+	writeIniBoolKey(iniFile, mapEntities[0], "jitter", "Jitter")
+	writeIniBoolKey(iniFile, mapEntities[0], "sampling_method", "Sampling_Method")
+	writeIniKey(iniFile, mapEntities[0], "render_width", "Width")
+	writeIniKey(iniFile, mapEntities[0], "render_height", "Height")
+	writeIniKey(iniFile, mapEntities[0], "quality", "Quality")
+	writeIniKey(iniFile, mapEntities[0], "bounding_threshold", "Bounding_Threshold")
+	writeIniKey(iniFile, mapEntities[0], "antialias_threshold", "Antialias_Threshold")
+	writeIniKey(iniFile, mapEntities[0], "antialias_depth", "Antialias_Depth")
+	writeIniKey(iniFile, mapEntities[0], "jitter_amount", "Jitter_Amount")
 	iniFile.write(f"Input_File_Name={sys.argv[2]}\n")
 	iniFile.close()
 
