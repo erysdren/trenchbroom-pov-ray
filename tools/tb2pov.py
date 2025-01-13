@@ -276,6 +276,17 @@ if __name__ == "__main__":
 		povFile.write(f"\tangle {float(mapCamera["fov"])}\n")
 	povFile.write("}\n\n")
 
+	# write fog
+	mapFog = findByClassName(mapEntities, "pov_fog")
+	if mapFog != None:
+		povFile.write("fog {\n")
+		if "distance" in mapFog:
+			povFile.write(f"\tdistance {mapFog["distance"]}\n")
+		if "color" in mapFog:
+			color = getEntityFieldVec3(mapFog, "color")
+			povFile.write(f"\tcolor rgb <{color.x}, {color.y}, {color.z}>\n")
+		povFile.write("}\n\n")
+
 	# write lights
 	for mapEntity in mapEntities:
 		if mapEntity["classname"] == "pov_light":
