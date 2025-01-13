@@ -257,7 +257,7 @@ if __name__ == "__main__":
 			origin = getEntityFieldVec3(mapEntity, "origin")
 			povFile.write("light_source {\n")
 			povFile.write(f"\t<{origin.x}, {origin.y}, {origin.z}>\n")
-			povFile.write("\tcolor rgb <1, 1, 1>\n")
+			povFile.write("\tcolor rgb <1, 1, 1> / 16\n")
 			povFile.write("}\n\n")
 
 	# write solids
