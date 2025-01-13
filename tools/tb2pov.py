@@ -217,9 +217,23 @@ if __name__ == "__main__":
 	# write out ini
 	iniFile = open(sys.argv[3], "w")
 	if "render_width" in mapEntities[0]:
-		iniFile.write(f"+W{mapEntities[0]["render_width"]}\n")
+		iniFile.write(f"Width={mapEntities[0]["render_width"]}\n")
 	if "render_height" in mapEntities[0]:
-		iniFile.write(f"+H{mapEntities[0]["render_height"]}\n")
+		iniFile.write(f"Height={mapEntities[0]["render_height"]}\n")
+	if "quality" in mapEntities[0]:
+		iniFile.write(f"Quality={mapEntities[0]["quality"]}\n")
+	if "bounding_threshold" in mapEntities[0]:
+		iniFile.write(f"Bounding_Threshold={mapEntities[0]["bounding_threshold"]}\n")
+	if "display" in mapEntities[0]:
+		if int(mapEntities[0]["display"]):
+			iniFile.write("Display=On\n")
+		else:
+			iniFile.write("Display=Off\n")
+	if "verbose" in mapEntities[0]:
+		if int(mapEntities[0]["verbose"]):
+			iniFile.write("Verbose=On\n")
+		else:
+			iniFile.write("Verbose=Off\n")
 	iniFile.write(f"Input_File_Name={sys.argv[2]}\n")
 	iniFile.close()
 
