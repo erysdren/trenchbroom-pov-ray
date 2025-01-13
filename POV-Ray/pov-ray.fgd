@@ -9,9 +9,19 @@
 	target(target_destination)
 ]
 
+@BaseClass = Origin
+[
+	origin(string)
+]
+
 @BaseClass = Angles
 [
 	angles(string)
+]
+
+@BaseClass = Scale
+[
+	scale(float) : : "1"
 ]
 
 @SolidClass = worldspawn : "World"
@@ -63,20 +73,20 @@
 
 @SolidClass = func_group : "Group" []
 
-@PointClass color(128 128 128) base(TargetName) = pov_target : "Target" []
+@PointClass color(128 128 128) base(Origin, TargetName) = pov_target : "Target" []
 
-@PointClass color(128 128 255) base(Angles, TargetName, Target) = pov_camera : "Camera"
+@PointClass color(128 128 255) base(Origin, Angles, TargetName, Target) = pov_camera : "Camera"
 [
 	fov(float) : : "90"
 ]
 
-@PointClass color(255 255 128) base(Angles, TargetName) = pov_light : "Light"
+@PointClass color(255 255 128) base(Origin, Angles, TargetName) = pov_light : "Light"
 [
 	color(string) : : "1 1 1"
 	scale(float) : : "1"
 ]
 
-@PointClass color(255 255 255) base(TargetName) = pov_fog : "Fog"
+@PointClass color(255 255 255) base(Origin, TargetName) = pov_fog : "Fog"
 [
 	lambda(float) : : "2"
 	fog_type(choices) : : 1 =
