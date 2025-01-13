@@ -238,6 +238,7 @@ if __name__ == "__main__":
 
 	# write out pov
 	povFile = open(sys.argv[2], "w")
+	povFile.write("#version 3.7;\n\n")
 
 	# write camera
 	povFile.write("camera {\n")
