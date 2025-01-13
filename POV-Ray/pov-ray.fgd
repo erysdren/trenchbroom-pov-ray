@@ -19,7 +19,8 @@
 	render_width(integer) : : 640
 	render_height(integer) : : 480
 	quality(integer) : : 9
-	bounding_threshold(integer) : : 3
+
+	// bools
 	display(choices) : : 0 =
 	[
 		0 : "Off"
@@ -30,6 +31,34 @@
 		0 : "Off"
 		1 : "On"
 	]
+
+	// bounding
+	bounding(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
+	bounding_threshold(integer) : : 3
+
+	// antialiasing
+	antialias(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
+	jitter(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
+	sampling_method(choices) : : 1 =
+	[
+		1 : "Method 1"
+		2 : "Method 2"
+	]
+	antialias_depth(integer)
+	antialias_threshold(float) : : "0.3"
+	jitter_amount(float)
 ]
 
 @SolidClass = func_group : "Group" []
