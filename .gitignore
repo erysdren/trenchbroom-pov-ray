@@ -4,3 +4,4 @@ scenes/**/*.ini
 scenes/**/*.png
 scenes/**/*.pov
 scenes/**/*.compile.map
+scenes/**/*.sh
