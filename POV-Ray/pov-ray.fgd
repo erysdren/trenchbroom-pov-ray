@@ -75,3 +75,22 @@
 	color(string) : : "1 1 1"
 	scale(float) : : "1"
 ]
+
+@PointClass color(255 255 255) base(TargetName) = pov_fog : "Fog"
+[
+	lambda(float) : : "2"
+	fog_type(choices) : : 1 =
+	[
+		1 : "Constant Fog"
+		2 : "Ground Fog"
+	]
+	distance(float) : : "1"
+	fog_offset(float) : : "0"
+	fog_alt(float) : : "0"
+	octaves(integer) : : 6
+	omega(float) : : "0.5"
+	turbulence(string) : : "0 0 0"
+	turb_depth(float) : : "0.5"
+	up(string) : : "0 1 0"
+	color(string) : : "1 1 1"
+]
