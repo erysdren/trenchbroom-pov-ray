@@ -222,9 +222,6 @@ if __name__ == "__main__":
 	iniFile.write(f"Input_File_Name={sys.argv[2]}\n")
 	iniFile.close()
 
-	# write out pov
-	povFile = open(sys.argv[2], "w")
-
 	# get camera
 	mapCamera = findByClassName(mapEntities, "pov_camera")
 	if mapCamera == None:
@@ -238,6 +235,9 @@ if __name__ == "__main__":
 			mapCameraLookAt = getEntityFieldVec3(mapCameraTarget, "origin")
 		else:
 			print("WARNING: Camera target specified does not exist!")
+
+	# write out pov
+	povFile = open(sys.argv[2], "w")
 
 	# write camera
 	povFile.write("camera {\n")
