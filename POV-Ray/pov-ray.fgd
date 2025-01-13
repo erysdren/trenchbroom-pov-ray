@@ -16,8 +16,8 @@
 
 @SolidClass = worldspawn : "World"
 [
-	render_width(integer) : : 640
-	render_height(integer) : : 480
+	render_width(integer) : : 800
+	render_height(integer) : : 600
 	quality(integer) : : 9
 
 	// bools
