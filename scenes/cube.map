@@ -20,7 +20,7 @@
 // entity 1
 {
 "classname" "pov_camera"
-"origin" "-248 -392 -56"
+"origin" "-248 -328 72"
 "target" "target1"
 "fov" "90"
 }
@@ -34,6 +34,20 @@
 {
 "classname" "pov_light"
 "origin" "-328 -216 -24"
+"scale" "16"
+"color" "1 1 1"
+}
+// entity 4
+{
+"classname" "pov_light"
+"origin" "56 40 360"
+"scale" "8"
+"color" "1 1 1"
+}
+// entity 5
+{
+"classname" "pov_light"
+"origin" "184 168 -280"
 "scale" "16"
 "color" "1 1 1"
 }
