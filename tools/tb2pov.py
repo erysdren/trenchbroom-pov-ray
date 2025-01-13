@@ -272,8 +272,9 @@ if __name__ == "__main__":
 		for mapBrush in mapEntity.brushes:
 			povFile.write("intersection {\n")
 			for mapBrushFace in mapBrush.faces:
-				povFile.write(f"\tplane {{<{mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}>, {mapBrushFace.plane.w}}}\n")
-			povFile.write("\tpigment { rgb <1, 0, 1> }\n}\n\n")
+				povFile.write(f"\tplane {{<{mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}>, {mapBrushFace.plane.w}")
+				povFile.write(f" texture {{ matrix <{1}, {0}, {0}, {0}, {1}, {0}, {0}, {0}, {1}, {0}, {0}, {0}> pigment {{ image_map {{ png \"{mapBrushFace.texture}.png\" }} }} }} }}\n")
+			povFile.write("}\n\n")
 
 	# clean up
 	povFile.close()
