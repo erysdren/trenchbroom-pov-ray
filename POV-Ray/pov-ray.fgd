@@ -104,3 +104,5 @@
 	up(string) : : "0 1 0"
 	color(string) : : "1 1 1"
 ]
+
+@PointClass color(128 255 128) base(Origin, Angles, Scale, TargetName) = pov_logo : "Logo" []
