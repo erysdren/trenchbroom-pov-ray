@@ -7,7 +7,7 @@ A basic toolchain for creating [POV-Ray](http://www.povray.org) scenes in
 
 ## Usage
 
-1. Place the [`POV-Ray`](/POV-Ray/) folder in your TrenchBroom games directory.
+1. Copy the [`POV-Ray`](/POV-Ray/) folder to your TrenchBroom games directory.
 2. Setup the game configuration to point to the appropriate tools (`tb2pov.py`
 and `povray`).
 3. Build a map.
