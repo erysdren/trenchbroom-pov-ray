@@ -31,6 +31,6 @@
 
 @PointClass color(255 255 128) base(Angles, TargetName) = pov_light : "Light"
 [
-	rgb(string) : : "1 1 1"
+	color(string) : : "1 1 1"
 	scale(float) : : "1"
 ]
