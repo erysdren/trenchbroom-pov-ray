@@ -1,6 +1,6 @@
 # TB-POV-RAY
 
-![](./.github/test3.png)
+![](./.github/showoff.png)
 
 A basic toolchain for creating [POV-Ray](http://www.povray.org) scenes in
 [TrenchBroom](https://trenchbroom.github.io/).
