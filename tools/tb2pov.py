@@ -263,6 +263,24 @@ if __name__ == "__main__":
 		povFile.write("fog {\n")
 		if "distance" in mapFog:
 			povFile.write(f"\tdistance {mapFog["distance"]}\n")
+		if "lambda" in mapFog:
+			povFile.write(f"\tlambda {mapFog["lambda"]}\n")
+		if "fog_offset" in mapFog:
+			povFile.write(f"\tfog_offset {mapFog["fog_offset"]}\n")
+		if "fog_alt" in mapFog:
+			povFile.write(f"\tfog_alt {mapFog["fog_alt"]}\n")
+		if "octaves" in mapFog:
+			povFile.write(f"\toctaves {mapFog["octaves"]}\n")
+		if "omega" in mapFog:
+			povFile.write(f"\tomega {mapFog["omega"]}\n")
+		if "turb_depth" in mapFog:
+			povFile.write(f"\turb_depth {mapFog["turb_depth"]}\n")
+		if "turbulence" in mapFog:
+			turbulence = getEntityFieldVec3(mapFog, "turbulence")
+			povFile.write(f"\tturbulence <{turbulence.x}, {turbulence.y}, {turbulence.z}>\n")
+		if "up" in mapFog:
+			up = getEntityFieldVec3(mapFog, "up")
+			povFile.write(f"\tup <{up.x}, {up.y}, {up.z}>\n")
 		if "color" in mapFog:
 			color = getEntityFieldVec3(mapFog, "color")
 			povFile.write(f"\tcolor rgb <{color.x}, {color.y}, {color.z}>\n")
