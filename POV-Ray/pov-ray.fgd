@@ -18,6 +18,18 @@
 [
 	render_width(integer) : : 640
 	render_height(integer) : : 480
+	quality(integer) : : 9
+	bounding_threshold(integer) : : 3
+	display(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
+	verbose(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
 ]
 
 @SolidClass = func_group : "Group" []
