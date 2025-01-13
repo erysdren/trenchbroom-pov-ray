@@ -179,6 +179,8 @@ def findByTargetName(mapEntities, targetName):
 
 # parse entity origin into vec3
 def getEntityFieldVec3(mapEntity, field):
+	if field not in mapEntity:
+		return Vec3(0, 0, 0)
 	tokens = mapEntity[field].split()
 	return Vec3(float(tokens[0]), float(tokens[1]), float(tokens[2]))
 
@@ -244,6 +246,10 @@ if __name__ == "__main__":
 	povFile = open(sys.argv[2], "w")
 	povFile.write("#version 3.7;\n\n")
 
+	# if there's a logo in the scene, write the necessary stuff
+	if findByClassName(mapEntities, "pov_logo") != None:
+		povFile.write("#include \"logo.inc\"\n\n")
+
 	# write camera
 	povFile.write("camera {\n")
 	povFile.write("\tsky <0, 0, 1>\n")
@@ -285,10 +291,10 @@ if __name__ == "__main__":
 			povFile.write(f"\tcolor rgb <{color.x}, {color.y}, {color.z}>\n")
 		povFile.write("}\n\n")
 
-	# write lights
+	# write objects
 	for mapEntity in mapEntities:
+		origin = getEntityFieldVec3(mapEntity, "origin")
 		if mapEntity["classname"] == "pov_light":
-			origin = getEntityFieldVec3(mapEntity, "origin")
 			povFile.write("light_source {\n")
 			povFile.write(f"\t<{origin.x}, {origin.y}, {origin.z}>\n")
 			if "color" in mapEntity:
@@ -302,6 +308,21 @@ if __name__ == "__main__":
 					povFile.write(f"\tcolor rgb <1, 1, 1> * {float(mapEntity["scale"])}\n")
 				else:
 					povFile.write("\tcolor rgb <1, 1, 1>\n")
+			povFile.write("}\n\n")
+		elif mapEntity["classname"] == "pov_logo":
+			povFile.write("object {\n")
+			povFile.write("\tPovray_Logo\n")
+			povFile.write("\trotate 90*x\n")
+			povFile.write("\trotate 90*z\n")
+			if "angles" in mapEntity:
+				angles = getEntityFieldVec3(mapEntity, "angles")
+				povFile.write(f"\trotate <{angles.x}, {angles.z}, {angles.y}>\n")
+			if "scale" in mapEntity:
+				povFile.write(f"\tscale {128 * float(mapEntity["scale"])}\n")
+			else:
+				povFile.write("\tscale 128\n")
+			povFile.write(f"\ttranslate <{origin.x}, {origin.y}, {origin.z}>\n")
+			povFile.write("\tpigment {rgb <1, 0, 1>}\n")
 			povFile.write("}\n\n")
 
 	# write solids
