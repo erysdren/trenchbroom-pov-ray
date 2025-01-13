@@ -202,24 +202,17 @@
 // entity 3
 {
 "classname" "pov_light"
-"origin" "96 -224 224"
-"scale" "4"
+"origin" "160 -288 288"
+"scale" "8"
 "color" "1 1 1"
 }
 // entity 4
 {
 "classname" "pov_light"
-"origin" "-64 -224 224"
-"scale" "4"
-"color" "1 1 1"
-}
-// entity 5
-{
-"classname" "pov_light"
 "origin" "-64 0 224"
 "color" "1 1 1"
 }
-// entity 6
+// entity 5
 {
 "classname" "pov_light"
 "origin" "96 0 224"
