@@ -209,7 +209,6 @@ if __name__ == "__main__":
 	mapEntities = parseMapEntities(inputFile)
 
 	# write out ini
-	# TODO: clean this up
 	iniFile = open(sys.argv[3], "w")
 	writeIniBoolKey(iniFile, mapEntities[0], "bounding", "Bounding")
 	writeIniBoolKey(iniFile, mapEntities[0], "display", "Display")
