@@ -67,12 +67,12 @@
 "classname" "pov_light"
 "origin" "384 160 224"
 "scale" "2"
-"rgb" "1 1 1"
+"color" "1 1 1"
 }
 // entity 4
 {
 "classname" "pov_light"
 "origin" "-384 160 224"
 "scale" "2"
-"rgb" "1 1 1"
+"color" "1 1 1"
 }
