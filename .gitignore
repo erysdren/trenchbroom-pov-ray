@@ -3,3 +3,4 @@ untracked/
 scenes/**/*.ini
 scenes/**/*.png
 scenes/**/*.pov
+scenes/**/*.compile.map
