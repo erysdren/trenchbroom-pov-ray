@@ -1,5 +1,10 @@
 # TB-POV-RAY
 
+![](./.github/test2.png)
+
+A basic toolchain for creating [POV-Ray](http://www.povray.org) scenes in
+[TrenchBroom](https://trenchbroom.github.io/).
+
 ## License
 
 MIT License
