@@ -4,14 +4,36 @@
 {
 "mapversion" "220"
 "classname" "worldspawn"
-"_tb_textures" "textures/alias3;textures/golgotha"
+"_tb_textures" "textures"
+"render_width" "640"
+"render_height" "480"
 // brush 0
 {
-( -128 -128 -160 ) ( -128 -127 -160 ) ( -128 -128 -159 ) alias3/cobble_stone_1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -128 -128 -160 ) ( -128 -128 -159 ) ( -127 -128 -160 ) alias3/cobble_stone_1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( -128 -128 -128 ) ( -127 -128 -128 ) ( -128 -127 -128 ) alias3/cobble_stone_1 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( 128 128 128 ) ( 128 129 128 ) ( 129 128 128 ) alias3/cobble_stone_1 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
-( 128 128 -128 ) ( 129 128 -128 ) ( 128 128 -127 ) alias3/cobble_stone_1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
-( 128 128 -128 ) ( 128 128 -127 ) ( 128 129 -128 ) alias3/cobble_stone_1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -128 -128 -160 ) ( -128 -127 -160 ) ( -128 -128 -159 ) cobble_stone_1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -128 -128 -160 ) ( -128 -128 -159 ) ( -127 -128 -160 ) cobble_stone_1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -128 -128 -128 ) ( -127 -128 -128 ) ( -128 -127 -128 ) cobble_stone_1 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 128 128 128 ) ( 128 129 128 ) ( 129 128 128 ) cobble_stone_1 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 128 128 -128 ) ( 129 128 -128 ) ( 128 128 -127 ) cobble_stone_1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 128 128 -128 ) ( 128 128 -127 ) ( 128 129 -128 ) cobble_stone_1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
+}
+// entity 1
+{
+"classname" "pov_camera"
+"origin" "-248 -392 -56"
+"target" "target1"
+"fov" "90"
+}
+// entity 2
+{
+"classname" "pov_target"
+"origin" "-152 -136 40"
+"targetname" "target1"
+}
+// entity 3
+{
+"classname" "pov_light"
+"origin" "-328 -216 -24"
+"scale" "16"
+"rgb" "1 1 1"
 }

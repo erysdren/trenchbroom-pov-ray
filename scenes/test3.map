@@ -4,7 +4,7 @@
 {
 "mapversion" "220"
 "classname" "worldspawn"
-"_tb_textures" "textures/alias3;textures/golgotha"
+"_tb_textures" "textures"
 "render_height" "480"
 "render_width" "640"
 // brush 0
