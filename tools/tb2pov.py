@@ -88,18 +88,6 @@ def printHelp():
 	print("python3 tb2pov.py INPUT.MAP OUTPUT.POV OUTPUT.INI")
 	sys.exit(0)
 
-# parse trenchbroom header info
-def parseMapHeader(inputFile):
-	inputFile.seek(0)
-
-	gameLine = inputFile.readline()
-	formatLine = inputFile.readline()
-
-	mapGame = gameLine.split("Game:")[1].strip()
-	mapFormat = formatLine.split("Format:")[1].strip()
-
-	return mapGame, mapFormat
-
 # parse brush
 def parseBrush(inputFile):
 	mapBrush = MapBrush()
@@ -216,13 +204,6 @@ if __name__ == "__main__":
 	inputFile = open(sys.argv[1], "r")
 	if not inputFile:
 		die(f"Failed to open {sys.argv[1]}")
-
-	# parse trenchbroom header info
-	mapGame, mapFormat = parseMapHeader(inputFile)
-
-	# check validity
-	if mapGame != "POV-Ray" or mapFormat != "Valve":
-		die(f"{sys.argv[1]} is not set up correctly for this tool (invalid Game or Format)")
 
 	# parse map structure
 	mapEntities = parseMapEntities(inputFile)
