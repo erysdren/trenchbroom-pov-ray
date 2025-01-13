@@ -10,11 +10,14 @@ A basic toolchain for creating [POV-Ray](http://www.povray.org) scenes in
 1. Place the [`POV-Ray`](/POV-Ray/) folder in your TrenchBroom games directory.
 2. Setup the game configuration to point to the appropriate tools (`tb2pov.py`
 and `povray`).
-3. Build a map and render it!
+3. Build a map.
+4. Use the TrenchBroom "Compile" dialog to automatically export and render the
+scene!
 
 ## Notes
 
-- Textures must be copied to the `scenes` folder for POV-Ray to pick them up.
+- Textures must be in PNG format.
+- Textures must be copied to the `scenes` folder for POV-Ray to find them.
 
 ## License
 
