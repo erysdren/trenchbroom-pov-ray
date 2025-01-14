@@ -250,6 +250,13 @@ if __name__ == "__main__":
 	if findByClassName(mapEntities, "pov_logo") != None:
 		povFile.write("#include \"logo.inc\"\n\n")
 
+	# write global settings
+	povFile.write("global_settings {\n")
+	if "ambient_light" in mapEntities[0]:
+		ambient_light = getEntityFieldVec3(mapEntities[0], "ambient_light")
+		povFile.write(f"\tambient_light <{ambient_light.x}, {ambient_light.y}, {ambient_light.z}>\n")
+	povFile.write("}\n\n")
+
 	# write camera
 	povFile.write("camera {\n")
 	povFile.write("\tsky <0, 0, 1>\n")
