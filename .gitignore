@@ -5,3 +5,4 @@ scenes/**/*.png
 scenes/**/*.pov
 scenes/**/*.compile.map
 scenes/**/*.sh
+scenes/**/*.pov-state
