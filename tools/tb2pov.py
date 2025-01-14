@@ -51,6 +51,7 @@ class MapBrushFace():
 class MapBrush():
 	def __init__(self):
 		self.faces = []
+		self.bbox = [Vec3(0, 0, 0), Vec3(0, 0, 0)]
 	def __repr__(self):
 		return repr(self.faces)
 
@@ -81,6 +82,18 @@ def vec3Dot(a, b):
 	r += a.z * b.z;
 	return r
 
+def boundingBoxFromPoints(points):
+	bbox = [Vec3(0, 0, 0), Vec3(0, 0, 0)]
+	for point in points:
+		if point.x < bbox[0].x: bbox[0].x = point.x
+		if point.x > bbox[1].x: bbox[1].x = point.x
+		if point.y < bbox[0].y: bbox[0].y = point.y
+		if point.y > bbox[1].y: bbox[1].y = point.y
+		if point.z < bbox[0].z: bbox[0].z = point.z
+		if point.z > bbox[1].z: bbox[1].z = point.z
+	print(bbox)
+	return bbox
+
 def planeFromPoints(a, b, c):
 	s1 = vec3Sub(b, a)
 	s2 = vec3Sub(c, a)
@@ -96,6 +109,7 @@ def printHelp():
 # parse brush
 def parseBrush(inputFile):
 	mapBrush = MapBrush()
+	points = []
 	while True:
 		line = inputFile.readline()
 		if not line:
@@ -108,6 +122,9 @@ def parseBrush(inputFile):
 			b = Vec3(float(tokens[6]), float(tokens[7]), float(tokens[8]))
 			c = Vec3(float(tokens[11]), float(tokens[12]), float(tokens[13]))
 			mapBrushFace.plane = planeFromPoints(a, b, c)
+			points.append(a)
+			points.append(b)
+			points.append(c)
 			mapBrushFace.texture = tokens[15]
 			mapBrushFace.u.x = float(tokens[17])
 			mapBrushFace.u.y = float(tokens[18])
@@ -122,6 +139,8 @@ def parseBrush(inputFile):
 			mapBrush.faces.append(mapBrushFace)
 		# done with brush
 		elif line.startswith("}"):
+			# calculate bounding box before returning
+			mapBrush.bbox = boundingBoxFromPoints(points)
 			return mapBrush
 
 # parse map entity from current position in input file
@@ -368,6 +387,8 @@ if __name__ == "__main__":
 				im = Image.open(f"{mapBrushFace.texture}.png")
 				povFile.write(f"\tplane {{<{mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}>, {mapBrushFace.plane.w}")
 				povFile.write(f" texture {{ scale <{im.size[0] * mapBrushFace.scale.x}, {im.size[1] * mapBrushFace.scale.y}, 1> matrix <{mapBrushFace.u.x}, {mapBrushFace.u.y}, {mapBrushFace.u.z}, {-mapBrushFace.v.x}, {-mapBrushFace.v.y}, {-mapBrushFace.v.z}, {mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}, {mapBrushFace.u.w}, {mapBrushFace.v.w}, {mapBrushFace.plane.w}> pigment {{ image_map {{ png \"{mapBrushFace.texture}.png\" }} }} }} }}\n")
+			povFile.write(f"\tclipped_by {{ box {{ <{mapBrush.bbox[0].x}, {mapBrush.bbox[0].y}, {mapBrush.bbox[0].z}>, <{mapBrush.bbox[1].x}, {mapBrush.bbox[1].y}, {mapBrush.bbox[1].z}> }}}}\n")
+			povFile.write("\tbounded_by { clipped_by }\n")
 			povFile.write("}\n\n")
 
 	# clean up
