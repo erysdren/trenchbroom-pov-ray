@@ -5,6 +5,11 @@ import sys
 import math
 from PIL import Image
 
+# oopsie, we gotta bail
+def die(msg):
+	print(f"ERROR: {msg}")
+	sys.exit(1)
+
 class Vec2():
 	def __init__(self, x=0, y=0):
 		self.x = x
@@ -157,11 +162,6 @@ def parseMapEntities(inputFile):
 			mapEntities.append(parseEntity(inputFile))
 
 	return mapEntities
-
-# oopsie, we gotta bail
-def die(msg):
-	print(f"ERROR: {msg}")
-	sys.exit(1)
 
 # search the list and return the first entity with the given classname
 def findByClassName(mapEntities, className):
