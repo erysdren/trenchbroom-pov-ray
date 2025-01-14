@@ -313,37 +313,6 @@ if __name__ == "__main__":
 		povFile.write(f"\tangle {float(mapCamera["fov"])}\n")
 	povFile.write("}\n\n")
 
-	# write fog
-	mapFog = findByClassName(mapEntities, "pov_fog")
-	if mapFog != None:
-		povFile.write("fog {\n")
-		if "fog_type" in mapFog:
-			povFile.write(f"\tfog_type {mapFog["fog_type"]}\n")
-		if "distance" in mapFog:
-			povFile.write(f"\tdistance {mapFog["distance"]}\n")
-		if "lambda" in mapFog:
-			povFile.write(f"\tlambda {mapFog["lambda"]}\n")
-		if "fog_offset" in mapFog:
-			povFile.write(f"\tfog_offset {mapFog["fog_offset"]}\n")
-		if "fog_alt" in mapFog:
-			povFile.write(f"\tfog_alt {mapFog["fog_alt"]}\n")
-		if "octaves" in mapFog:
-			povFile.write(f"\toctaves {mapFog["octaves"]}\n")
-		if "omega" in mapFog:
-			povFile.write(f"\tomega {mapFog["omega"]}\n")
-		if "turb_depth" in mapFog:
-			povFile.write(f"\turb_depth {mapFog["turb_depth"]}\n")
-		if "turbulence" in mapFog:
-			turbulence = getEntityFieldVec3(mapFog, "turbulence")
-			povFile.write(f"\tturbulence <{turbulence.x}, {turbulence.y}, {turbulence.z}>\n")
-		if "up" in mapFog:
-			up = getEntityFieldVec3(mapFog, "up")
-			povFile.write(f"\tup <{up.x}, {up.y}, {up.z}>\n")
-		if "color" in mapFog:
-			color = getEntityFieldVec3(mapFog, "color")
-			povFile.write(f"\tcolor rgb <{color.x}, {color.y}, {color.z}>\n")
-		povFile.write("}\n\n")
-
 	# write objects
 	for mapEntity in mapEntities:
 		origin = getEntityFieldVec3(mapEntity, "origin")
@@ -399,6 +368,34 @@ if __name__ == "__main__":
 			else:
 				povFile.write("\tscale 128\n")
 			povFile.write(f"\ttranslate <{origin.x}, {origin.y}, {origin.z}>\n")
+			povFile.write("}\n\n")
+		elif mapEntity["classname"] == "pov_fog":
+			povFile.write("fog {\n")
+			if "fog_type" in mapEntity:
+				povFile.write(f"\tfog_type {mapEntity["fog_type"]}\n")
+			if "distance" in mapEntity:
+				povFile.write(f"\tdistance {mapEntity["distance"]}\n")
+			if "lambda" in mapEntity:
+				povFile.write(f"\tlambda {mapEntity["lambda"]}\n")
+			if "fog_offset" in mapEntity:
+				povFile.write(f"\tfog_offset {mapEntity["fog_offset"]}\n")
+			if "fog_alt" in mapEntity:
+				povFile.write(f"\tfog_alt {mapEntity["fog_alt"]}\n")
+			if "octaves" in mapEntity:
+				povFile.write(f"\toctaves {mapEntity["octaves"]}\n")
+			if "omega" in mapEntity:
+				povFile.write(f"\tomega {mapEntity["omega"]}\n")
+			if "turb_depth" in mapEntity:
+				povFile.write(f"\turb_depth {mapEntity["turb_depth"]}\n")
+			if "turbulence" in mapEntity:
+				turbulence = getEntityFieldVec3(mapEntity, "turbulence")
+				povFile.write(f"\tturbulence <{turbulence.x}, {turbulence.y}, {turbulence.z}>\n")
+			if "up" in mapEntity:
+				up = getEntityFieldVec3(mapEntity, "up")
+				povFile.write(f"\tup <{up.x}, {up.y}, {up.z}>\n")
+			if "color" in mapEntity:
+				color = getEntityFieldVec3(mapEntity, "color")
+				povFile.write(f"\tcolor rgb <{color.x}, {color.y}, {color.z}>\n")
 			povFile.write("}\n\n")
 
 	# write solids
