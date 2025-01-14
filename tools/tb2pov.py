@@ -214,6 +214,7 @@ if __name__ == "__main__":
 	iniFile = open(sys.argv[3], "w")
 	writeIniBoolKey(iniFile, mapEntities[0], "bounding", "Bounding")
 	writeIniBoolKey(iniFile, mapEntities[0], "display", "Display")
+	writeIniBoolKey(iniFile, mapEntities[0], "render_alpha", "Output_Alpha")
 	writeIniBoolKey(iniFile, mapEntities[0], "verbose", "Verbose")
 	writeIniBoolKey(iniFile, mapEntities[0], "antialias", "Antialias")
 	writeIniBoolKey(iniFile, mapEntities[0], "jitter", "Jitter")
@@ -274,7 +275,12 @@ if __name__ == "__main__":
 	povFile.write("background {\n")
 	if "background" in mapEntities[0]:
 		background = getEntityFieldVec3(mapEntities[0], "background")
-		povFile.write(f"\tcolor rgb <{background.x}, {background.y}, {background.z}>\n")
+		if "background_alpha" in mapEntities[0]:
+			povFile.write(f"\tcolor rgbt <{background.x}, {background.y}, {background.z}, {1.0 - float(mapEntities[0]["background_alpha"])}>\n")
+		else:
+			povFile.write(f"\tcolor rgb <{background.x}, {background.y}, {background.z}>\n")
+	elif "background_alpha" in mapEntities[0]:
+		povFile.write(f"\tcolor rgbt <0.0, 0.0, 0.0, {1.0 - float(mapEntities[0]["background_alpha"])}>\n")
 	povFile.write("}\n\n")
 
 	# write camera
@@ -350,7 +356,6 @@ if __name__ == "__main__":
 			else:
 				povFile.write("\tscale 128\n")
 			povFile.write(f"\ttranslate <{origin.x}, {origin.y}, {origin.z}>\n")
-			povFile.write("\tpigment {rgb <1, 0, 1>}\n")
 			povFile.write("}\n\n")
 
 	# write solids
