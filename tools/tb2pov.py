@@ -408,7 +408,7 @@ if __name__ == "__main__":
 			for mapBrushFace in mapBrush.faces:
 				im = Image.open(f"{mapBrushFace.texture}.png")
 				povFile.write(f"\tplane {{<{mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}>, {mapBrushFace.plane.w}")
-				povFile.write(f" texture {{ scale <{im.size[0] * mapBrushFace.scale.x}, {im.size[1] * mapBrushFace.scale.y}, 1> matrix <{mapBrushFace.u.x}, {mapBrushFace.u.y}, {mapBrushFace.u.z}, {-mapBrushFace.v.x}, {-mapBrushFace.v.y}, {-mapBrushFace.v.z}, {mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}, {mapBrushFace.u.w}, {mapBrushFace.v.w}, {mapBrushFace.plane.w}> pigment {{ image_map {{ png \"{mapBrushFace.texture}.png\" }} }} }} }}\n")
+				povFile.write(f" texture {{ scale <{im.size[0] * mapBrushFace.scale.x}, {im.size[1] * mapBrushFace.scale.y}, 1> matrix <{mapBrushFace.u.x}, {mapBrushFace.u.y}, {mapBrushFace.u.z}, {-mapBrushFace.v.x}, {-mapBrushFace.v.y}, {-mapBrushFace.v.z}, {mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}, {-mapBrushFace.u.w}, {mapBrushFace.v.w}, {mapBrushFace.plane.w}> pigment {{ image_map {{ png \"{mapBrushFace.texture}.png\" }} }} }} }}\n")
 			povFile.write(f"\tclipped_by {{ box {{ <{mapBrush.bbox[0].x}, {mapBrush.bbox[0].y}, {mapBrush.bbox[0].z}>, <{mapBrush.bbox[1].x}, {mapBrush.bbox[1].y}, {mapBrush.bbox[1].z}> }}}}\n")
 			povFile.write("\tbounded_by { clipped_by }\n")
 			povFile.write("}\n\n")
