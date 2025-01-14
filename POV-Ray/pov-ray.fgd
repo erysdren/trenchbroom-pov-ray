@@ -69,6 +69,9 @@
 	antialias_depth(integer)
 	antialias_threshold(float) : : "0.3"
 	jitter_amount(float)
+
+	// global_settings block
+	ambient_light(string) : : "1 1 1"
 ]
 
 @SolidClass = func_group : "Group" []
