@@ -252,6 +252,10 @@ if __name__ == "__main__":
 
 	# write global settings
 	povFile.write("global_settings {\n")
+	if "assumed_gamma" in mapEntities[0]:
+		povFile.write(f"\tassumed_gamma {mapEntities[0]["assumed_gamma"]}\n")
+	else
+		povFile.write("\tassumed_gamma 1.0\n")
 	if "ambient_light" in mapEntities[0]:
 		ambient_light = getEntityFieldVec3(mapEntities[0], "ambient_light")
 		povFile.write(f"\tambient_light <{ambient_light.x}, {ambient_light.y}, {ambient_light.z}>\n")
