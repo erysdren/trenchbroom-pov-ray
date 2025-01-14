@@ -91,10 +91,19 @@
 	fov(float) : : "90"
 ]
 
-@PointClass color(255 255 128) base(Origin, Angles, TargetName) = pov_light : "Light"
+@PointClass color(255 255 128) base(Origin, Angles, TargetName, Target) = pov_light : "Light"
 [
 	color(string) : : "1 1 1"
 	scale(float) : : "1"
+	falloff(float) : : "45"
+	radius(float) : : "30"
+	tightness(float) : : "0"
+	light_type(choices) : : 0 =
+	[
+		0 : "pointlight"
+		1 : "spotlight"
+		2 : "cylinder"
+	]
 ]
 
 @PointClass color(255 255 255) base(Origin, TargetName) = pov_fog : "Fog"
