@@ -1,0 +1,47 @@
+// Game: POV-Ray
+// Format: Valve
+// entity 0
+{
+"mapversion" "220"
+"classname" "worldspawn"
+"_tb_textures" "textures"
+"render_width" "800"
+"render_height" "600"
+"ambient_light" "1 1 1"
+"antialias" "1"
+"jitter" "1"
+"quality" "11"
+"render_alpha" "1"
+"background_alpha" "0"
+// brush 0
+{
+( -128 -128 0 ) ( -128 -127 0 ) ( -128 -128 1 ) crate0_side [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -128 -128 0 ) ( -128 -128 1 ) ( -127 -128 0 ) crate0_side [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -128 -128 0 ) ( -127 -128 0 ) ( -128 -127 0 ) crate0_top [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( -64 -64 64 ) ( -64 -63 64 ) ( -63 -64 64 ) crate0_top [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( -64 -64 32 ) ( -63 -64 32 ) ( -64 -64 33 ) crate0_side [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( -64 -64 32 ) ( -64 -64 33 ) ( -64 -63 32 ) crate0_side [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+}
+}
+// entity 1
+{
+"classname" "pov_camera"
+"origin" "-192 -192 128"
+"target" "target1"
+"fov" "55"
+}
+// entity 2
+{
+"classname" "pov_logo"
+"origin" "-128 -128 64"
+"targetname" "target1"
+"angles" "-35 -135 0"
+"scale" "0.25"
+}
+// entity 3
+{
+"classname" "pov_light"
+"origin" "-224 -224 160"
+"color" "1 1 1"
+"scale" "4"
+}
