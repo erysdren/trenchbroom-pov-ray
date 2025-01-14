@@ -30,6 +30,7 @@
 	render_height(integer) : : 600
 	quality(integer) : : 9
 	background(string) : : "0 0 0"
+	background_alpha(float) : : "1.0"
 
 	// bools
 	display(choices) : : 0 =
@@ -38,6 +39,11 @@
 		1 : "On"
 	]
 	verbose(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
+	render_alpha(choices) : : 0 =
 	[
 		0 : "Off"
 		1 : "On"
