@@ -330,7 +330,7 @@ if __name__ == "__main__":
 			povFile.write("\trotate 90*z\n")
 			if "angles" in mapEntity:
 				angles = getEntityFieldVec3(mapEntity, "angles")
-				povFile.write(f"\trotate <{angles.x}, {angles.z}, {angles.y}>\n")
+				povFile.write(f"\trotate <{angles.z}, {angles.x}, {angles.y}>\n")
 			if "scale" in mapEntity:
 				povFile.write(f"\tscale {128 * float(mapEntity["scale"])}\n")
 			else:
