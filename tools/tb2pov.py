@@ -361,6 +361,29 @@ if __name__ == "__main__":
 					povFile.write(f"\tcolor rgb <1, 1, 1> * {float(mapEntity["scale"])}\n")
 				else:
 					povFile.write("\tcolor rgb <1, 1, 1>\n")
+			if "falloff" in mapEntity:
+				povFile.write(f"\tfalloff {mapEntity["falloff"]}\n")
+			if "radius" in mapEntity:
+				povFile.write(f"\tradius {mapEntity["radius"]}\n")
+			if "tightness" in mapEntity:
+				povFile.write(f"\ttightness {mapEntity["tightness"]}\n")
+			if "light_type" in mapEntity:
+				light_type = int(mapEntity["light_type"])
+				if light_type == 0:
+					povFile.write("\tpointlight\n")
+				elif light_type == 1:
+					povFile.write("\tspotlight\n")
+				elif light_type == 2:
+					povFile.write("\tcylinder\n")
+				else:
+					print(f"WARNING: light_type {light_type} is invalid")
+			if "target" in mapEntity:
+				mapLightTarget = findByTargetName(mapEntities, mapEntity["target"])
+				if mapLightTarget != None:
+					mapLightLookAt = getEntityFieldVec3(mapLightTarget, "origin")
+					povFile.write(f"\tpoint_at <{mapLightLookAt.x}, {mapLightLookAt.y}, {mapLightLookAt.z}>\n")
+				else:
+					print(f"WARNING: light target {mapEntity["target"]} was specified but was not found")
 			povFile.write("}\n\n")
 		elif mapEntity["classname"] == "pov_logo":
 			povFile.write("object {\n")
