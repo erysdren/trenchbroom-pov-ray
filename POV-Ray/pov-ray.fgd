@@ -29,6 +29,7 @@
 	render_width(integer) : : 800
 	render_height(integer) : : 600
 	quality(integer) : : 9
+	background(string) : : "0 0 0"
 
 	// bools
 	display(choices) : : 0 =
