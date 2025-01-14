@@ -249,6 +249,15 @@ if __name__ == "__main__":
 	# if there's a logo in the scene, write the necessary stuff
 	if findByClassName(mapEntities, "pov_logo") != None:
 		povFile.write("#include \"logo.inc\"\n\n")
+		povFile.write("#declare LogoPigment =\n")
+		povFile.write("pigment {\n")
+		povFile.write("\tplanar scale 2 translate y\n")
+		povFile.write("\tcolor_map {\n")
+		povFile.write("\t\t[0.0, color <1.0, 0.4, 0.4>*0.7]\n")
+		povFile.write("\t\t[0.5, color <0.4, 0.9, 0.4>*0.7]\n")
+		povFile.write("\t\t[1.0, color <0.4, 0.4, 1.0>*0.7]\n")
+		povFile.write("\t}\n")
+		povFile.write("}\n\n")
 
 	# write global settings
 	povFile.write("global_settings {\n")
@@ -330,6 +339,7 @@ if __name__ == "__main__":
 		elif mapEntity["classname"] == "pov_logo":
 			povFile.write("object {\n")
 			povFile.write("\tPovray_Logo\n")
+			povFile.write("\tpigment { LogoPigment }\n")
 			povFile.write("\trotate 90*x\n")
 			povFile.write("\trotate 90*z\n")
 			if "angles" in mapEntity:
