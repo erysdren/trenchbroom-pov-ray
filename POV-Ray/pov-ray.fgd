@@ -73,6 +73,7 @@
 
 	// global_settings block
 	ambient_light(string) : : "1 1 1"
+	assumed_gamma(float) : : "1.0"
 ]
 
 @SolidClass = func_group : "Group" []
