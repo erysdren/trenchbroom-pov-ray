@@ -299,6 +299,8 @@ if __name__ == "__main__":
 	mapFog = findByClassName(mapEntities, "pov_fog")
 	if mapFog != None:
 		povFile.write("fog {\n")
+		if "fog_type" in mapFog:
+			povFile.write(f"\tfog_type {mapFog["fog_type"]}\n")
 		if "distance" in mapFog:
 			povFile.write(f"\tdistance {mapFog["distance"]}\n")
 		if "lambda" in mapFog:
