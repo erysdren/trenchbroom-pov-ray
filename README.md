@@ -5,7 +5,7 @@
 A basic toolchain for creating [POV-Ray](http://www.povray.org) scenes in
 [TrenchBroom](https://trenchbroom.github.io/).
 
-Huge thanks to [.:/ DiSCATTe \:.](https://discatte.github.io/) and
+Huge thanks to [.:/ DiSCATTe \\:.](https://discatte.github.io/) and
 [Spoike](https://triptohell.info/) for helping me figure out the best ways to
 translate the map data to POV-Ray. This wouldn't have been possible without
 them!
