@@ -91,7 +91,6 @@ def boundingBoxFromPoints(points):
 		if point.y > bbox[1].y: bbox[1].y = point.y
 		if point.z < bbox[0].z: bbox[0].z = point.z
 		if point.z > bbox[1].z: bbox[1].z = point.z
-	print(bbox)
 	return bbox
 
 def planeFromPoints(a, b, c):
