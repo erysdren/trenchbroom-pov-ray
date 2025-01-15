@@ -98,6 +98,21 @@
 	falloff(float) : : "45"
 	radius(float) : : "30"
 	tightness(float) : : "0"
+	adaptive(float) : : "0"
+	area_light(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
+	area_axis_1(string) : : "1 0 0"
+	area_axis_2(string) : : "0 0 1"
+	area_size_1(float) : : "1"
+	area_size_2(float) : : "1"
+	jitter(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "On"
+	]
 	light_type(choices) : : 0 =
 	[
 		0 : "pointlight"
