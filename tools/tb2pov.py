@@ -318,7 +318,7 @@ if __name__ == "__main__":
 	for mapEntity in mapEntities:
 		for mapBrush in mapEntity.brushes:
 			for mapBrushFace in mapBrush.faces:
-				if os.path.isfile(f"{mapBrushFace.texture}.inc"):
+				if os.path.isfile(f"textures/{mapBrushFace.texture}.inc"):
 					materialFile = open(f"textures/{mapBrushFace.texture}.inc", "r")
 					material = materialFile.read()
 					materialFile.close()
@@ -451,7 +451,7 @@ if __name__ == "__main__":
 					else:
 						povFile.write(" texture {")
 					povFile.write(f" scale <{im.size[0] * mapBrushFace.scale.x}, {im.size[1] * mapBrushFace.scale.y}, 1> matrix <{mapBrushFace.u.x}, {mapBrushFace.u.y}, {mapBrushFace.u.z}, {-mapBrushFace.v.x}, {-mapBrushFace.v.y}, {-mapBrushFace.v.z}, {mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}, {-mapBrushFace.u.w}, {mapBrushFace.v.w}, {mapBrushFace.plane.w}>")
-					if not os.path.isfile(f"{mapBrushFace.texture}.inc"):
+					if not os.path.isfile(f"textures/{mapBrushFace.texture}.inc"):
 						povFile.write(f" pigment {{ image_map {{ png \"textures/{mapBrushFace.texture}.png\" }} }}")
 					povFile.write("  } }\n")
 				povFile.write(f"\t\tclipped_by {{ box {{ <{mapBrush.bbox[0].x}, {mapBrush.bbox[0].y}, {mapBrush.bbox[0].z}>, <{mapBrush.bbox[1].x}, {mapBrush.bbox[1].y}, {mapBrush.bbox[1].z}> }}}}\n")
