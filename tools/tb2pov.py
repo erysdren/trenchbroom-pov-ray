@@ -279,6 +279,11 @@ if __name__ == "__main__":
 		povFile.write("\t}\n")
 		povFile.write("}\n\n")
 
+	# if there's a sky sphere in the scene, write the necessary stuff
+	if findByClassName(mapEntities, "pov_sky_sphere") != None:
+		povFile.write("#include \"colors.inc\"\n")
+		povFile.write("#include \"skies.inc\"\n\n")
+
 	# write global settings
 	povFile.write("global_settings {\n")
 	if "assumed_gamma" in mapEntities[0]:
@@ -435,6 +440,26 @@ if __name__ == "__main__":
 			if "color" in mapEntity:
 				color = getEntityFieldVec3(mapEntity, "color")
 				povFile.write(f"\tcolor rgb <{color.x}, {color.y}, {color.z}>\n")
+			povFile.write("}\n\n")
+		elif mapEntity["classname"] == "pov_sky_sphere":
+			povFile.write("sky_sphere {\n")
+			if "preset" in mapEntity:
+				preset = int(mapEntity["preset"])
+				if preset == 0:
+					povFile.write("\tS_Cloud1\n")
+				elif preset == 1:
+					povFile.write("\tS_Cloud2\n")
+				elif preset == 2:
+					povFile.write("\tS_Cloud3\n")
+				elif preset == 3:
+					povFile.write("\tS_Cloud4\n")
+				elif preset == 4:
+					povFile.write("\tS_Cloud5\n")
+				else:
+					print(f"WARNING: sky_sphere preset {preset} is invalid")
+			else:
+				povFile.write("\tS_Cloud1\n")
+			povFile.write("\trotate 90*x\n")
 			povFile.write("}\n\n")
 
 	# write solids
