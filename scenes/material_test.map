@@ -68,6 +68,15 @@
 ( 352 0 32 ) ( 352 0 168 ) ( 320 16 160 ) cobble_stone_1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
 ( 256 -192 168 ) ( 384 -16 40 ) ( 288 -208 40 ) cobble_stone_1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
+// brush 7
+{
+( 64 -64 0 ) ( 64 -63 0 ) ( 64 -64 1 ) crate0_side [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 64 -64 0 ) ( 64 -64 1 ) ( 65 -64 0 ) crate0_side [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 64 -64 0 ) ( 65 -64 0 ) ( 64 -63 0 ) crate0_side [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 128 0 64 ) ( 128 1 64 ) ( 129 0 64 ) crate0_top [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 128 0 32 ) ( 129 0 32 ) ( 128 0 33 ) crate0_side [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 128 0 32 ) ( 128 0 33 ) ( 128 1 32 ) crate0_side [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+}
 }
 // entity 1
 {
@@ -85,6 +94,24 @@
 // entity 3
 {
 "classname" "pov_light"
-"origin" "128 0 64"
-"scale" "2"
+"origin" "-32 -160 192"
+"scale" "4"
+"target" "spotlight_target"
+"light_type" "1"
+"jitter" "1"
+"adaptive" "1"
+}
+// entity 4
+{
+"classname" "pov_target"
+"origin" "96 -32 96"
+"targetname" "spotlight_target"
+}
+// entity 5
+{
+"classname" "pov_logo"
+"origin" "48 -80 48"
+"targetname" "target1"
+"angles" "-0 -135 0"
+"scale" "0.25"
 }
