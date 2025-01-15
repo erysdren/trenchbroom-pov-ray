@@ -3,6 +3,7 @@
 
 import sys
 import math
+import os
 from PIL import Image
 
 # oopsie, we gotta bail
@@ -313,6 +314,16 @@ if __name__ == "__main__":
 		povFile.write(f"\tangle {float(mapCamera["fov"])}\n")
 	povFile.write("}\n\n")
 
+	# write materials
+	for mapEntity in mapEntities:
+		for mapBrush in mapEntity.brushes:
+			for mapBrushFace in mapBrush.faces:
+				if os.path.isfile(f"{mapBrushFace.texture}.inc"):
+					materialFile = open(f"{mapBrushFace.texture}.inc", "r")
+					material = materialFile.read()
+					materialFile.close()
+					povFile.write(f"{material}\n\n")
+
 	# write objects
 	for mapEntity in mapEntities:
 		origin = getEntityFieldVec3(mapEntity, "origin")
@@ -435,7 +446,14 @@ if __name__ == "__main__":
 				for mapBrushFace in mapBrush.faces:
 					im = Image.open(f"{mapBrushFace.texture}.png")
 					povFile.write(f"\t\tplane {{<{mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}>, {mapBrushFace.plane.w}")
-					povFile.write(f" texture {{ scale <{im.size[0] * mapBrushFace.scale.x}, {im.size[1] * mapBrushFace.scale.y}, 1> matrix <{mapBrushFace.u.x}, {mapBrushFace.u.y}, {mapBrushFace.u.z}, {-mapBrushFace.v.x}, {-mapBrushFace.v.y}, {-mapBrushFace.v.z}, {mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}, {-mapBrushFace.u.w}, {mapBrushFace.v.w}, {mapBrushFace.plane.w}> pigment {{ image_map {{ png \"{mapBrushFace.texture}.png\" }} }} }} }}\n")
+					if os.path.isfile(f"{mapBrushFace.texture}.inc"):
+						povFile.write(f" texture {{ {mapBrushFace.texture}")
+					else:
+						povFile.write(" texture {")
+					povFile.write(f" scale <{im.size[0] * mapBrushFace.scale.x}, {im.size[1] * mapBrushFace.scale.y}, 1> matrix <{mapBrushFace.u.x}, {mapBrushFace.u.y}, {mapBrushFace.u.z}, {-mapBrushFace.v.x}, {-mapBrushFace.v.y}, {-mapBrushFace.v.z}, {mapBrushFace.plane.x}, {mapBrushFace.plane.y}, {mapBrushFace.plane.z}, {-mapBrushFace.u.w}, {mapBrushFace.v.w}, {mapBrushFace.plane.w}>")
+					if not os.path.isfile(f"{mapBrushFace.texture}.inc"):
+						povFile.write(f" pigment {{ image_map {{ png \"{mapBrushFace.texture}.png\" }} }}")
+					povFile.write("  } }\n")
 				povFile.write(f"\t\tclipped_by {{ box {{ <{mapBrush.bbox[0].x}, {mapBrush.bbox[0].y}, {mapBrush.bbox[0].z}>, <{mapBrush.bbox[1].x}, {mapBrush.bbox[1].y}, {mapBrush.bbox[1].z}> }}}}\n")
 				povFile.write("\t\tbounded_by { clipped_by }\n")
 				povFile.write("\t}\n")
