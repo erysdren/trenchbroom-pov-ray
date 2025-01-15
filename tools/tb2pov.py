@@ -336,6 +336,34 @@ if __name__ == "__main__":
 				povFile.write(f"\tradius {mapEntity["radius"]}\n")
 			if "tightness" in mapEntity:
 				povFile.write(f"\ttightness {mapEntity["tightness"]}\n")
+			if "adaptive" in mapEntity:
+				povFile.write(f"\tadaptive {mapEntity["adaptive"]}\n")
+			if "area_light" in mapEntity:
+				area_light = int(mapEntity["area_light"])
+				if area_light > 0:
+					povFile.write("\tarea_light ")
+					if "area_axis_1" in mapEntity:
+						area_axis_1 = getEntityFieldVec3(mapEntity, "area_axis_1")
+						povFile.write(f"<{area_axis_1.x}, {area_axis_1.y}, {area_axis_1.z}> ")
+					else:
+						povFile.write("<1, 0, 0> ")
+					if "area_axis_2" in mapEntity:
+						area_axis_2 = getEntityFieldVec3(mapEntity, "area_axis_2")
+						povFile.write(f"<{area_axis_2.x}, {area_axis_2.y}, {area_axis_2.z}> ")
+					else:
+						povFile.write("<0, 0, 1> ")
+					if "area_size_1" in mapEntity:
+						povFile.write(f"{mapEntity["area_size_1"]} ")
+					else:
+						povFile.write("1 ")
+					if "area_size_2" in mapEntity:
+						povFile.write(f"{mapEntity["area_size_2"]}\n")
+					else:
+						povFile.write("1\n")
+			if "jitter" in mapEntity:
+				jitter = int(mapEntity["jitter"])
+				if jitter > 0:
+					povFile.write("\tjitter\n")
 			if "light_type" in mapEntity:
 				light_type = int(mapEntity["light_type"])
 				if light_type == 0:
