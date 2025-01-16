@@ -80,6 +80,21 @@
 	// global_settings block
 	ambient_light(string) : : "1 1 1"
 	assumed_gamma(float) : : "1.0"
+	radiosity(choices) : : 0 =
+	[
+		0 : "Off"
+		1 : "Default"
+		2 : "Debug"
+		3 : "Fast"
+		4 : "Normal"
+		5 : "2Bounce"
+		6 : "Final"
+		7 : "OutdoorLQ"
+		8 : "OutdoorHQ"
+		9 : "OutdoorLight"
+		10 : "IndoorLQ"
+		11 : "IndoorHQ"
+	]
 ]
 
 @SolidClass = func_group : "Group" []
