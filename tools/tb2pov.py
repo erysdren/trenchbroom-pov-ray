@@ -284,6 +284,10 @@ if __name__ == "__main__":
 		povFile.write("#include \"colors.inc\"\n")
 		povFile.write("#include \"skies.inc\"\n\n")
 
+	# if there's radiosity in the scene, write the necessary stuff
+	if "radiosity" in mapEntities[0]:
+		povFile.write("#include \"rad_def.inc\"\n\n")
+
 	# write global settings
 	povFile.write("global_settings {\n")
 	if "assumed_gamma" in mapEntities[0]:
@@ -293,6 +297,27 @@ if __name__ == "__main__":
 	if "ambient_light" in mapEntities[0]:
 		ambient_light = getEntityFieldVec3(mapEntities[0], "ambient_light")
 		povFile.write(f"\tambient_light <{ambient_light.x}, {ambient_light.y}, {ambient_light.z}>\n")
+	if "radiosity" in mapEntities[0]:
+		radiosity = int(mapEntities[0]["radiosity"])
+		if radiosity < 0 or radiosity > 11:
+			print(f"WARNING: radiosity option {radiosity} is out of range")
+		elif radiosity > 0:
+			radiosityPresets = [
+				"Radiosity_Default",
+				"Radiosity_Debug",
+				"Radiosity_Fast",
+				"Radiosity_Normal",
+				"Radiosity_2Bounce",
+				"Radiosity_Final",
+				"Radiosity_OutdoorLQ",
+				"Radiosity_OutdoorHQ",
+				"Radiosity_OutdoorLight",
+				"Radiosity_IndoorLQ",
+				"Radiosity_IndoorHQ"
+			]
+			povFile.write("\tradiosity {\n")
+			povFile.write(f"\t\tRad_Settings({radiosityPresets[radiosity - 1]}, off, off)\n")
+			povFile.write("\t}\n")
 	povFile.write("}\n\n")
 
 	# write background
